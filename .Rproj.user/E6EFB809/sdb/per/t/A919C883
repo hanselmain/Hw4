@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Facebook粉絲團分析（分析專頁名稱朱立倫）\"\noutput: github_document\n---\n\n分析朱立倫粉絲團資料，資料分析區間為2016/01/01至2016/04/09貼文分析\n\n```{r results='hide',message=FALSE, warning=FALSE}\nif (!require('Rfacebook')){\n    install.packages(\"Rfacebook\")\n    library(Rfacebook)\n}\n```\n\n## 讀取朱立倫粉絲團資料\n\n```{r echo=T}\ntoken<-'CAACEdEose0cBANn5pL5P2QDRqZCwheBhHUjCDmYBSlP5tJFmiOS4sRH9bN3eNnADNlBOfdk43Vt7PCebU7R1Jx8Q6JH8fHx0FtYFyEK91bhx9erxhGsMasyIRZCZAUZB6p28lE3tUIih8NWAMoZC2nYo9Hj6K60y1Vg3mZAUlVLsbm87mZAIZChhIy9zPmWRYYCQjZAe8dJlIjgZDZD'\ntotalPage<-NULL\nlastDate<-Sys.Date()\nDateVectorStr<-as.character(seq(as.Date(\"2016-01-01\"),lastDate,by=\"5 days\"))\nfor(i in 1:(length(DateVectorStr)-1)){\n    tempPage<-getPage(\"llchu\", token,\n                      since = DateVectorStr[i],until = DateVectorStr[i+1])\n    totalPage<-rbind(totalPage,tempPage)\n}\nnrow(totalPage)\n```\n\n2016/01/01至2016/04/09朱立倫粉絲團一共有129篇文章\n\n## 每日發文數分析\n分析朱立倫粉絲團每天的發文數\n\n```{r}\ntotalPage$datetime <- as.POSIXct(totalPage$created_time, \n                                 format = \"%Y-%m-%dT%H:%M:%S+0000\", \n                                 tz = \"GMT\") #2016-01-16T15:05:36+0000\ntotalPage$dateTPE <- format(totalPage$datetime, \"%Y-%m-%d\", \n                            tz = \"Asia/Taipei\") #2016-01-16\ntotalPage$weekdays <-weekdays(as.Date(totalPage$dateTPE))\nPostCount<-aggregate(id~dateTPE,totalPage,length)\nlibrary(knitr)\nkable(head(PostCount[order(PostCount$id,decreasing = T),]))\n```\n\n01/16 是總統大選，所以前幾天的發文數較高\n\n03/20 新北市的活動較多\"萬金石馬拉松\"、\"新北市美術家雙年展\"、HBL籃球賽\n\n## 每日likes數分析\n分析朱立倫粉絲團每天的likes數\n\n```{r}\ntotalPage$datetime <- as.POSIXct(totalPage$created_time, \n                                 format = \"%Y-%m-%dT%H:%M:%S+0000\", \n                                 tz = \"GMT\") #2016-01-16T15:05:36+0000\ntotalPage$dateTPE <- format(totalPage$datetime, \"%Y-%m-%d\", \n                            tz = \"Asia/Taipei\") #2016-01-16\ntotalPage$weekdays <-weekdays(as.Date(totalPage$dateTPE))\nLikesCount<-aggregate(likes_count~dateTPE,totalPage,mean)\nlibrary(knitr)\nkable(head(LikesCount[order(LikesCount$likes_count,decreasing = T),]))\n```\n\n01/16 總統大選，落選的文章讚數有13萬，但同天有另一篇只有3萬讚的貼文，使得讚數被平均了\n\n02/06 台南地震，有許多人為台南加油打氣，但也有不少造口業的\n\n## 每日comments數分析\n分析朱立倫粉絲團每天的comments數\n\n```{r}\ntotalPage$datetime <- as.POSIXct(totalPage$created_time, \n                                 format = \"%Y-%m-%dT%H:%M:%S+0000\", \n                                 tz = \"GMT\") #2016-01-16T15:05:36+0000\ntotalPage$dateTPE <- format(totalPage$datetime, \"%Y-%m-%d\", \n                            tz = \"Asia/Taipei\") #2016-01-16\ntotalPage$weekdays <-weekdays(as.Date(totalPage$dateTPE))\nCommentCount<-aggregate(comments_count~dateTPE,totalPage,mean)\nlibrary(knitr)\nkable(head(CommentCount[order(CommentCount$comments_count,decreasing = T),]))\n```\n\n01/16 由於總統大選的落選與對周子瑜事件的不滿，使得留言數很多\n\n01/15 的拉票貼文較多，使得留言數被平均了\n\n## 每日shares數分析\n分析朱立倫粉絲團每天的shares數\n\n```{r}\ntotalPage$datetime <- as.POSIXct(totalPage$created_time, \n                                 format = \"%Y-%m-%dT%H:%M:%S+0000\", \n                                 tz = \"GMT\") #2016-01-16T15:05:36+0000\ntotalPage$dateTPE <- format(totalPage$datetime, \"%Y-%m-%d\", \n                            tz = \"Asia/Taipei\") #2016-01-16\ntotalPage$weekdays <-weekdays(as.Date(totalPage$dateTPE))\nSharesCount<-aggregate(shares_count~dateTPE,totalPage,mean)\nlibrary(knitr)\nkable(head(SharesCount[order(SharesCount$shares_count,decreasing = T),]))\n```\n\n01/15 因為周子瑜事件，許多不滿一直執政黨對這件事情處理態度的人留言謾罵，並且分享了這篇文章\n\n比同天的\"明天，我們需要你，投下這一票\"之類的拉票貼文分享數要高出許多",
+    "created" : 1460187186492.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1412568064",
+    "id" : "A919C883",
+    "lastKnownWriteTime" : 1460195758,
+    "last_content_update" : 1460195758314,
+    "path" : "C:/Users/Lin/Desktop/Hw4/Homework4.Rmd",
+    "project_path" : "Homework4.Rmd",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
