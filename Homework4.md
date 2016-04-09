@@ -62,6 +62,7 @@ kable(head(PostCount[order(PostCount$id,decreasing = T),]))
 | 1   | 2016-01-01 |    3|
 
 01/16 是總統大選，所以前幾天的發文數較高
+
 03/20 新北市的活動較多"萬金石馬拉松"、"新北市美術家雙年展"、HBL籃球賽
 
 每日likes數分析
@@ -91,6 +92,7 @@ kable(head(LikesCount[order(LikesCount$likes_count,decreasing = T),]))
 | 36  | 2016-02-08 |       41877.0|
 
 01/16 總統大選，落選的文章讚數有13萬，但同天有另一篇只有3萬讚的貼文，使得讚數被平均了
+
 02/06 台南地震，有許多人為台南加油打氣，但也有不少造口業的
 
 每日comments數分析
@@ -120,6 +122,7 @@ kable(head(CommentCount[order(CommentCount$comments_count,decreasing = T),]))
 | 34  | 2016-02-06 |           1377.0|
 
 01/16 由於總統大選的落選與對周子瑜事件的不滿，使得留言數很多 
+
 01/15 的拉票貼文較多，使得留言數被平均了
 
 每日shares數分析
@@ -149,4 +152,5 @@ kable(head(SharesCount[order(SharesCount$shares_count,decreasing = T),]))
 | 9   | 2016-01-09 |        937.000|
 
 01/15 因為周子瑜事件，許多不滿一直執政黨對這件事情處理態度的人留言謾罵，並且分享了這篇文章
+
 比同天的"明天，我們需要你，投下這一票"之類的拉票貼文分享數要高出許多
